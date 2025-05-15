@@ -10,7 +10,9 @@ module('Integration | Component | people-list', function (hooks) {
     this.set('title', 'List of Programmers');
     this.set('people', ['Ada Lovelace', 'Grace Hopper']);
 
-    await render(hbs`<PeopleList @title={{this.title}} @people={{this.people}} />`);
+    await render(
+      hbs`<PeopleList @title={{this.title}} @people={{this.people}} />`,
+    );
 
     assert.dom('h2').hasText('List of Programmers');
     assert.dom('ul li').exists({ count: 2 });
