@@ -6,21 +6,15 @@ import { hbs } from 'ember-cli-htmlbars';
 module('Integration | Component | people-list', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function (assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+  test('it renders a list of people with a title', async function (assert) {
+    this.set('title', 'List of Programmers');
+    this.set('people', ['Ada Lovelace', 'Grace Hopper']);
 
-    await render(hbs`<PeopleList />`);
+    await render(hbs`<PeopleList @title={{this.title}} @people={{this.people}} />`);
 
-    assert.dom().hasText('');
-
-    // Template block usage:
-    await render(hbs`
-      <PeopleList>
-        template block text
-      </PeopleList>
-    `);
-
-    assert.dom().hasText('template block text');
+    assert.dom('h2').hasText('List of Programmers');
+    assert.dom('ul li').exists({ count: 2 });
+    assert.dom('ul li:nth-child(1) button').hasText('Ada Lovelace');
+    assert.dom('ul li:nth-child(2) button').hasText('Grace Hopper');
   });
 });
